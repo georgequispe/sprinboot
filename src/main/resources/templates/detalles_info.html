@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}">Pagina en sping boot</title>
+</head>
+<body>
+    <h1>Detalles del Empleado</h1>
+    <ul>
+        <li><strong>Nombre:</strong> <span th:text="${Empleado.nombre}">Nombre del Empleado</span></li>
+        <li><strong>Apellido:</strong> <span th:text="${Empleado.apellido}">Apellido del Empleado</span></li>
+        <li>
+            <strong>Dirección:</strong>
+            <span th:text="${Empleado.direccion} != null ? ${Empleado.direccion} : 'Dirección no disponible'">Dirección del Empleado</span>
+        </li>
+        <li><strong>Email:</strong> <span th:text="${Empleado.email}">Email del Empleado</span></li>
+        <li><strong>ID:</strong> <span th:text="${Empleado.id}">ID del Empleado</span></li>
+        <li><strong>Edad:</strong> <span th:text="${Empleado.edad}">Edad del Empleado</span></li>
+        <li><strong>Teléfono:</strong> <span th:text="${Empleado.telefono}">Teléfono del Empleado</span></li>
+    </ul>
+    <h1>Lista de Empleados</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Dirección</th>
+                <th>Email</th>
+                <th>ID</th>
+                <th>Edad</th>
+                <th>Teléfono</th>
+
+            </tr>
+        </thead>
+        <tbody th:each="empleado : ${listaEmpleados}">
+            <tr>
+                
+                <td th:text="${empleado.nombre}"></td>
+                <td th:text="${empleado.apellido}"></td>
+                <td th:text="${empleado.direccion}"></td>
+                <td th:text="${empleado.email}"></td>
+                <td th:text="${empleado.id}"></td>
+                <td th:text="${empleado.edad}"></td>
+                <td th:text="${empleado.telefono}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
