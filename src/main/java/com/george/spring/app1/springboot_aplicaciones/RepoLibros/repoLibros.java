@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 @Repository
-public class repoLibros {
+public class repoLibros implements I_RepoLibros {
     private final List<Libros> libros = new ArrayList<>();
     public repoLibros() {
         libros.add(new Libros(1, "El Gran Gatsby", "F. Scott Fitzgerald", LocalDate.of(1925, 4, 10)));
@@ -17,19 +17,29 @@ public class repoLibros {
         libros.add(new Libros(4, "Matar a un Ruiseñor", "Harper Lee", LocalDate.of(1960, 7, 11)));
         libros.add(new Libros(5, "1984", "George Orwell", LocalDate.of(1949, 6, 8)));   
     }
+    @Override
     public List<Libros> findAll() {
         return libros;
     }
-    public Libros findByTitulo(String titulo) {
+    @Override
+    public Optional<Libros> findByTitulo(String titulo) {
         return libros.stream()
                 .filter(libro -> libro.getTitulo().equalsIgnoreCase(titulo))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
+    @Override
     public Optional<Libros> findById(long id) {
         return libros.stream()
                 .filter(libro -> libro.getIdLibro() == id)
                 .findFirst();
+    }
+    @Override
+    public void save(Libros libro) {
+        libros.add(libro);
+    }
+    @Override
+    public void deleteById(long id) {
+        libros.removeIf(libro -> libro.getIdLibro() == id);
     }
 
 }
