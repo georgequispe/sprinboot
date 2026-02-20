@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class ControlaorLibreria  {
     // Inyección de dependencia del servicio
     private final I_ServicioLibro servicioLibro;
-    private final repoLibros libroRepositorio;
+    
     public ControlaorLibreria(I_ServicioLibro servicioLibro , repoLibros libroRepositorio) {
         this.servicioLibro = servicioLibro;
         this.libroRepositorio = libroRepositorio;
@@ -41,15 +42,16 @@ public class ControlaorLibreria  {
     // Método para obtener todos los libros
     
     public List<Libros> obtenerTodosLosLibros() {
-        return libroRepositorio.findAll();
+        return servicioLibro.obtenerTodosLosLibros();
     }
     @GetMapping("/id/{id}")
     // Método para obtener un libro por su ID
     
     public ResponseEntity<Libros> obtenerPorId(@PathVariable long id) {
-        return libroRepositorio.findById(id)
-                .map(ResponseEntity::ok)
+        Optional<Libros> libroOpt = servicioLibro.obtenerPorId(id);
+        return libroOpt.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+        
     }
     @PostMapping("/crear")
     public ResponseEntity<Libros> crear(@RequestBody Libros libro) {
