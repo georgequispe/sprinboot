@@ -25,7 +25,7 @@ public class ControlaorLibreria  {
     
     public ControlaorLibreria(I_ServicioLibro servicioLibro , repoLibros libroRepositorio) {
         this.servicioLibro = servicioLibro;
-        this.libroRepositorio = libroRepositorio;
+       
     }
     @GetMapping("/{titulo}")
     // Método para obtener un libro por su título
